@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const create_user_dto_1 = require("./dtos/create-user.dto");
 const users_service_1 = require("./users.service");
 const update_user_dto_1 = require("./dtos/update-user.dto");
+const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
+const user_dto_1 = require("./dtos/user.dto");
 let UsersController = class UsersController {
     constructor(userService) {
         this.userService = userService;
@@ -26,6 +28,7 @@ let UsersController = class UsersController {
         console.log(user);
     }
     async findById(id) {
+        console.log('Method is running');
         const user = await this.userService.findOne(parseInt(id));
         if (!user) {
             throw new common_1.NotFoundException(`User ${id} not found`);
@@ -33,6 +36,7 @@ let UsersController = class UsersController {
         return user;
     }
     async findAll(email) {
+        console.log('Method is running');
         return await this.userService.find(email);
     }
     async remove(id) {
@@ -80,6 +84,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateUser", null);
 exports.UsersController = UsersController = __decorate([
+    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     (0, common_1.Controller)("auth"),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
