@@ -1,19 +1,36 @@
-### List all messages
-GET http://localhost:3000/messages
-Accept: application/json
-
-### Create a new message
-POST http://localhost:3000/messages
+### Signup
+POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "content": "Hello Hua"
+  "email": "hua@test.com",
+  "password": "123456"
 }
 
-### Get one single message
-GET http://localhost:3000/messages/210
+### Find user by id
+GET http://localhost:3000/auth/81
 Accept: application/json
 
-### Invalid
-GET http://localhost:3000/messages1
+### Find users by email
+GET http://localhost:3000/auth?email=hua@test.com
 Accept: application/json
+
+### Remove user by id
+DELETE http://localhost:3000/auth/3
+Accept: application/json
+
+### Update user by id
+PATCH http://localhost:3000/auth/2
+content-type: application/json
+
+{
+  "email": "hua_update@test.com"
+}
+
+### Update user by id
+PATCH http://localhost:3000/auth/2
+content-type: application/json
+
+{
+  "password": "bbb"
+}
