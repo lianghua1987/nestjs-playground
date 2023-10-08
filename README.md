@@ -11,6 +11,14 @@
 ```bash
 $ nest generate module messages
 $ nest generate controller messages/messages --flat
+$ nest g module computer
+$ nest g module cpu
+$ nest g module disk
+$ nest g module power
+$ nest g service cpu
+$ nest g service disk
+$ nest g service power
+$ nest g controller computer
 ```
 
 ## Installation
