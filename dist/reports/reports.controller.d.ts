@@ -6,7 +6,7 @@ import { GetEstimateDto } from "./dtos/get-estimate.dto";
 export declare class ReportsController {
     private reportsService;
     constructor(reportsService: ReportsService);
-    getEstimate(query: GetEstimateDto): void;
+    getEstimate(query: GetEstimateDto): Promise<any[]>;
     createReport(dto: CreateReportDto, user: User): Promise<import("./report.entity").Report>;
     approveReport(id: string, dto: ApproveReportDto): Promise<import("./report.entity").Report>;
 }

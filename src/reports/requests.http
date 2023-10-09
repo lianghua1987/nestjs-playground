@@ -5,11 +5,11 @@ content-type: application/json
 {
   "make": "volvo",
   "model": "s90",
-  "year": 2019,
-  "mileage": 27000,
+  "year": 2018,
+  "mileage": 17000,
   "lng": 0,
   "lat": 0,
-  "price": 200000
+  "price": 195000
 }
 
 ### Find currently signed user
@@ -21,10 +21,5 @@ content-type: application/json
 }
 
 ### Get an estimation for an existing vehicle
-GET http://localhost:3000/reports?make=volvo&model=s90&lat=0&lng=0&mileage=27000&year=2019
-content-type: application/json
-
-{
-  "approved": true
-}
-
+GET http://localhost:3000/reports?make=volvo&model=s90&lat=0&lng=0&mileage=27000&year=2017
+Accept: application/json

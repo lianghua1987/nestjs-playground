@@ -21,6 +21,21 @@ let ReportsService = class ReportsService {
     constructor(reportRepository) {
         this.reportRepository = reportRepository;
     }
+    createEstimate({ make, model, lng, lat, mileage, year }) {
+        return this.reportRepository
+            .createQueryBuilder()
+            .select("AVG(price), price")
+            .where("make=:make", { make })
+            .andWhere("model=:model", { model })
+            .andWhere("lng - :lng between -5 and 5", { lng })
+            .andWhere("lat - :lat between -5 and 5", { lat })
+            .andWhere("year - :year between -3 and 3", { year })
+            .andWhere('approved is true')
+            .orderBy('ABS(mileage - :mileage)', 'DESC')
+            .setParameters({ mileage })
+            .limit(3)
+            .getRawMany();
+    }
     create(dto, user) {
         const report = this.reportRepository.create(dto);
         report.user = user;
