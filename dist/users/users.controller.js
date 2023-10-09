@@ -20,6 +20,9 @@ const update_user_dto_1 = require("./dtos/update-user.dto");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const user_dto_1 = require("./dtos/user.dto");
 const auth_service_1 = require("./auth.service");
+const current_user_decorator_1 = require("./decorators/current-user.decorator");
+const user_entity_1 = require("./user.entity");
+const auth_guard_1 = require("../guards/auth.guard");
 let UsersController = class UsersController {
     constructor(userService, authService) {
         this.userService = userService;
@@ -35,8 +38,8 @@ let UsersController = class UsersController {
         session.userId = user.id;
         return user;
     }
-    async whoAmI(session) {
-        return await this.userService.findOne(session.userId);
+    async whoAmI(user) {
+        return user;
     }
     signout(session) {
         session.userId = null;
@@ -79,9 +82,10 @@ __decorate([
 ], UsersController.prototype, "signin", null);
 __decorate([
     (0, common_1.Get)("/whoami"),
-    __param(0, (0, common_1.Session)()),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "whoAmI", null);
 __decorate([
