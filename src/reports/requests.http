@@ -1,0 +1,17 @@
+### Signup
+POST http://localhost:3000/reports
+content-type: application/json
+
+{
+  "make": "volvo",
+  "model": "s90",
+  "year": 2019,
+  "mileage": 27000,
+  "lng": 0,
+  "lat": 0,
+  "price": 200000
+}
+
+### Find currently signed user
+GET http://localhost:3000/auth/whoami
+Accept: application/json
