@@ -33,6 +33,7 @@ $ nest g service reports
 $ nest g module app --flat
 $ nest g service app --flat
 $ nest g controller app --flat
+$ nest g service users/auth --flat
 ```
 
 

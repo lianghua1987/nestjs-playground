@@ -19,16 +19,30 @@ const users_service_1 = require("./users.service");
 const update_user_dto_1 = require("./dtos/update-user.dto");
 const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
 const user_dto_1 = require("./dtos/user.dto");
+const auth_service_1 = require("./auth.service");
 let UsersController = class UsersController {
-    constructor(userService) {
+    constructor(userService, authService) {
         this.userService = userService;
+        this.authService = authService;
     }
-    async signup(dto) {
-        const user = await this.userService.signup(dto.email, dto.password);
-        console.log(user);
+    async signup(dto, session) {
+        const user = await this.authService.signup(dto.email, dto.password);
+        session.userId = user.id;
+        return user;
+    }
+    async signin(dto, session) {
+        const user = await this.authService.signin(dto.email, dto.password);
+        session.userId = user.id;
+        return user;
+    }
+    async whoAmI(session) {
+        return await this.userService.findOne(session.userId);
+    }
+    signout(session) {
+        session.userId = null;
     }
     async findById(id) {
-        console.log('Method is running');
+        console.log("Method is running");
         const user = await this.userService.findOne(parseInt(id));
         if (!user) {
             throw new common_1.NotFoundException(`User ${id} not found`);
@@ -36,7 +50,7 @@ let UsersController = class UsersController {
         return user;
     }
     async findAll(email) {
-        console.log('Method is running');
+        console.log("Method is running");
         return await this.userService.find(email);
     }
     async remove(id) {
@@ -50,10 +64,33 @@ exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Post)("/signup"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "signup", null);
+__decorate([
+    (0, common_1.Post)("/signin"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "signin", null);
+__decorate([
+    (0, common_1.Get)("/whoami"),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "whoAmI", null);
+__decorate([
+    (0, common_1.Post)("/signout"),
+    __param(0, (0, common_1.Session)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "signout", null);
 __decorate([
     (0, common_1.Get)("/:id"),
     __param(0, (0, common_1.Param)("id")),
@@ -86,6 +123,6 @@ __decorate([
 exports.UsersController = UsersController = __decorate([
     (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
     (0, common_1.Controller)("auth"),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map

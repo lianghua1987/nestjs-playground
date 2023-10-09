@@ -17,7 +17,7 @@ export class SerializeInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
 
     // Run something  before a request is handled
-    console.log("Running before the handler: ", context);
+    // console.log("Running before the handler: ", context);
 
     return next.handle().pipe(
       map((data: any) => {
@@ -26,7 +26,7 @@ export class SerializeInterceptor implements NestInterceptor {
         });
 
         // Run something before the response is sent out
-        console.log("Running before the response is sent out: ", data);
+        // console.log("Running before the response is sent out: ", data);
       })
     );
   }
