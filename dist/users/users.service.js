@@ -25,10 +25,10 @@ let UsersService = class UsersService {
         const user = this.repo.create({ email, password });
         return await this.repo.save(user);
     }
-    async findOne(id) {
+    findOne(id) {
         if (!id)
             return null;
-        return await this.repo.findOneBy({ id });
+        return this.repo.findOneBy({ id });
     }
     async find(email) {
         return await this.repo.find({ where: { email } });

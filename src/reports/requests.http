@@ -13,5 +13,18 @@ content-type: application/json
 }
 
 ### Find currently signed user
-GET http://localhost:3000/auth/whoami
-Accept: application/json
+PATCH http://localhost:3000/reports/1
+content-type: application/json
+
+{
+  "approved": true
+}
+
+### Get an estimation for an existing vehicle
+GET http://localhost:3000/reports?make=volvo&model=s90&lat=0&lng=0&mileage=27000&year=2019
+content-type: application/json
+
+{
+  "approved": true
+}
+

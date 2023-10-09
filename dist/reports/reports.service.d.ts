@@ -6,4 +6,5 @@ export declare class ReportsService {
     private reportRepository;
     constructor(reportRepository: Repository<Report>);
     create(dto: CreateReportDto, user: User): Promise<Report>;
+    changeApproval(id: string, approved: boolean): Promise<Report>;
 }
