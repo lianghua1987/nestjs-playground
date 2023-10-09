@@ -34,6 +34,8 @@ $ nest g module app --flat
 $ nest g service app --flat
 $ nest g controller app --flat
 $ nest g service users/auth --flat
+$ npm run typeorm migration:generate -- -o migrations/schema-init -d .\ormconfigWrapper.js 
+$ npm run typeorm migration:run --  -d .\ormconfigWrapper.js  
 ```
 
 
