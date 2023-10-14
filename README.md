@@ -37,7 +37,16 @@ $ nest g service users/auth --flat
 $ npm run typeorm migration:generate -- -o migrations/schema-init -d .\ormconfigWrapper.js 
 $ npm run typeorm migration:run --  -d .\ormconfigWrapper.js  
 ```
-
+## Heroku deployment
+```bash
+$ heroku login
+$ heroku auth whoami
+$ heroku create
+$ heroku addons:create heroku-postgresql:hobby-dev
+$ heroku config:Set COOKIE_KEY=RANDOMSTRING
+$ heroku config:Set NODE_ENV=production
+$ git push heroku master
+```
 
 ## Installation
 ```bash
